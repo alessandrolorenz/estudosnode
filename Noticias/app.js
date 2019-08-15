@@ -1,15 +1,16 @@
-var express = require('express');
+var app = require('./config/server')
 
-var app = express();
+var port = 3000;
 
-app.get('/', function(req, res){
-    res.send("<html><body><h1>Portal de notícias</h1></body></html>");
-})
+var rotaNoticias = require('./app/routes/noticias');
+rotaNoticias(app);
 
-app.get('/tecnologia', function(req, res){
-    res.send("<html><body><h1>Notícias de tecnologia</h1></body></html>");
-})
+var rotaHome = require('./app/routes/home');
+rotaHome(app);
 
-app.listen(3000, function(){
-    console.log("Servidor rodando com Express");
+var rotaNoticias= require('./app/routes/noticias');
+rotaNoticias(app);
+
+app.listen(port, function(){
+    console.log("Servidor rodando com Express na porta: " + port);
 })
