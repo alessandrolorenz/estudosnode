@@ -1,11 +1,17 @@
 var express = require('express');
 var consign = require('consign');
+var bodyParser = require('body-parser');
 
 var app = express();
-
 app.set('view engine', 'ejs');
 app.set('views', './app/views');
 
-consign().include('app/routes').into(app);
+app.use(bodyParser.urlencoded({externded: true})); //middleware
+
+consign()
+    .include('app/routes') 
+    .then('config/dbConnection.js') // vai a extensâo para ele nao procurar por uma pasta
+    .then('app/models')
+    .into(app);
 
 module.exports = app;
