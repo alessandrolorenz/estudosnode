@@ -14,6 +14,7 @@ consign()
     .include('app/routes') 
     .then('config/dbConnection.js') // vai a extensâo para ele nao procurar por uma pasta
     .then('app/models')
+    .then('app/controllers')
     .into(app);
 
 module.exports = app;
