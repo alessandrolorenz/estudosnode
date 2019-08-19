@@ -7,10 +7,10 @@ module.exports = function(app) {
    app.get('/noticias', function(req, res){
 
     var connection = app.config.dbConnection();
-    var noticiasModel = new app.app.models.noticiasModel;
+    var noticiasModel = new app.app.models.NoticiasDAO(connection);
 
 
-        noticiasModel.getNoticias(connection, function(error, result){ // passa a noticia e o callback
+        noticiasModel.getNoticias( function(error, result){ // passa a noticia e o callback
             res.render("noticias/noticias", {noticias : result});
         });       
     }); 
