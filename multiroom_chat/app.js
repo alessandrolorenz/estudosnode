@@ -2,8 +2,6 @@
 
 var app = require('./config/server');
 
-/* parametrizar a porta de escuta  */
-
 var port = 80; //localhost (sem:80 só localhost)
 
 // serao tratadas requisições http e socket na mesma porta... desde que tratadas corretamente
@@ -19,12 +17,21 @@ app.set('io', io); // setando a variavel global
 
 io.on('connection', function(socket){
    console.log('O usuario conectou...');
-
    // a partir da instancia da pra criar outros evntos como disconnect
    socket.on('disconnect', function(){
      console.log('O cliente desconectou');
    });
 
-   // eventos de escuta=on  eventoS de disparo=emit, por exemplo
+   socket.on('msgParaServidor', function(data){ // esta ouvindo a mng e mandando de volta
+      socket.emit(
+        'msgParaCliente',
+        { apelido: data.apelido, mensagem: data.mensagem }
+      );
+      socket.broadcast.emit(
+        'msgParaCliente',
+        { apelido: data.apelido, mensagem: data.mensagem }
+      );
+   });
+
 
   })  

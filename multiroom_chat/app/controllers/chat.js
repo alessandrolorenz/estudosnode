@@ -21,5 +21,5 @@ module.exports.iniciaChat = function(application, req, res){
 
   // io é uma instancia de io que está no app (tem que fazer entao uma variavel global no app)
 // entao a partir do app(application) recupera ela (mas tem que ser com o get)
-  res.render('chat'); 
+  res.render('chat', { dadosForm: dadosForm }); 
 }
