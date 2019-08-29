@@ -29,6 +29,12 @@ a:hover{
 	text-decoration: none;
 }
 
+.noticia_noticia{
+	color:#000;
+	font-size:18px;
+	text-decoration: none;
+}
+
 .noticia_data{
 	color:#727272;
 	display: block;
