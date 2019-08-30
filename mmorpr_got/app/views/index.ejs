@@ -31,9 +31,12 @@
 									<%  }  %>
 							</ul>
 					</div>
-
 					<%  }  %>
-			
+
+					
+					<% if(msg) { %>
+						<div class="alert alert-danger"><h3><strong><%= msg %></strong></h3></div>
+					<%  }  %>
 
 				<form class="form-inline form-entrar" action="/autenticar" method="post">
 					<div class="form-group">				
@@ -43,9 +46,7 @@
 						<button type="button" class="btn btn-info">Cadastro</button>
 					</div>
 				</form>
-					<% if(msg) { %>
-						<div class="alert alert-danger"><h3><strong><%= msg %></strong></h3></div>
-					<%  }  %>
+				
 			</div>
 			
 		</nav>

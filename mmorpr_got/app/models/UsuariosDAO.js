@@ -3,7 +3,7 @@ function UsuariosDAO(connection){ //classe (POO) // recebe a func
 }
 
 UsuariosDAO.prototype.inserirUsuario = function(usuario){
-  this._connection.open( function(err, mongoClient){ // executa uma acao que é a func de callbak
+  this._connection.open( function(err, mongoClient){ // executa uma acao que é a func de callbak(que é uma acao a ser tomada)
         mongoClient.collection("usuarios", function(err, collection){ // prim param é o nom da collect e o seg é a func calback
             collection.insert(usuario);
 
@@ -18,7 +18,7 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
         collection.find(usuario).toArray(function(err, result){  //find retorna om ponteiro por isso tem que ser convertido em um array
              //{usuario: {$eq: usuario.usuario}, senha: {$eq: usuario.senha}} // query-mesmo que {usuario: usuario.usuario, senha: usuario.senha} - mesmo que obj usuario
           if(result[0] != undefined){
-            req.session.autorizado = true; //cria a var autenticado na sessao
+            req.session.autorizado = true; //cria a var autenticado na sessao (variaveis de sessao)
             req.session.usuario = result[0].usuario;
             req.session.casa = result[0].casa;
           }
