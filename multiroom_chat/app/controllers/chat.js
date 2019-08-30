@@ -15,11 +15,9 @@ module.exports.iniciaChat = function(application, req, res){
     'msgParaCliente', // é o mesmo nome que receberá na view no on()
     {apelido: dadosForm.apelido, mensagem: 'acabou de entrar no chat'} // recuperado la como data na function
     
-    ) 
-
-
+    ); 
 
   // io é uma instancia de io que está no app (tem que fazer entao uma variavel global no app)
-// entao a partir do app(application) recupera ela (mas tem que ser com o get)
+  // entao a partir do app(application) recupera ela (mas tem que ser com o get)
   res.render('chat', { dadosForm: dadosForm }); 
 }

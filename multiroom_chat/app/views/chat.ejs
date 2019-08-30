@@ -73,37 +73,25 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-10" id="dialogos">
 
-
-
 					<div class="dialogo">
-						<h4>Jorge</h4>
-						<p>Fala José, blz cara?</p>
+						<h4> <strong>Bem Vindo ao meu Chat</strong> </h4>
+						<p><strong>Converse a vontade</strong></p>
 					</div>
-					
-					
 
 				</div>
-				<div class="col-md-1"></div>
-                
+				<div class="col-md-1"></div>       
             </div>
 			
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Jorge
-					</span>
-					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						José
-					</span>
-					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Fernando
-					</span>
+				<div class="col-md-10" id="pessoas">
+
+							<span class="participante">
+								<img src="images/ico_usuario.png" />
+								<strong>Participantes</strong>
+							</span>
+		
+
 				</div>
 				<div class="col-md-1"></div>
                 
@@ -118,6 +106,7 @@
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
 								<input type="hidden" value="<%= dadosForm.apelido %>" id="apelido" />
+								<input type="hidden" value="0" id="apelido_atualizado_nos_clientes" />
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button" id="enviar_mensagem" >></button>
 								</span>
@@ -137,8 +126,14 @@
 				$('#enviar_mensagem').click(function(){
 					socket.emit(
 						'msgParaServidor', // vai executar no servidor esta funcao - se ela existir la
-						{ apelido: $('#apelido').val(), mensagem: $('#mensagem').val() }
+						{ 
+							apelido: $('#apelido').val(),
+							mensagem: $('#mensagem').val(),
+							apelido_atualizado_nos_clientes : $('#apelido_atualizado_nos_clientes').val()
+						 }
 					);
+					$('#mensagem').val("");
+					$('#apelido_atualizado_nos_clientes').val(1);
 				});
 
 				socket.on('msgParaCliente', function(data){
@@ -148,10 +143,21 @@
 						html += '<h4>' + data.apelido + '</h4>';
 						html += '<p>' + data.mensagem + '</p>';
 					html += '</div>';
-
 						// jquery
-						$('#dialogos').append(html);				
+						$('#dialogos').append(html);
+						window.scrollTo(0, document.body.scrollHeight);				
 				});
+
+				socket.on('participanteParaCliente', function(data){
+					var html = '';
+
+					html += '<span">';
+						html +=  data.apelido;
+					html += '</span><br>';
+						// jquery
+					$('#pessoas').append(html);				
+				});
+
 
 		</script>
 			<!-- qnd renderizar aqui, o evento de instancia do obj io sera estabelecido para a porta localhost -->
