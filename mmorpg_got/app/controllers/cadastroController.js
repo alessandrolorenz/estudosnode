@@ -18,10 +18,11 @@ module.exports.cadastrar = function(application, req, res) {
   }
 
   var connection = application.config.dbConnection; // possui uma função mas nao é executada
-  console.log(connection);
   var UsuariosDAO = new application.app.models.UsuariosDAO(connection); //passa a funcao para o obj
+  var jogoDAO = new application.app.models.JogoDAO(connection); //passa a funcao para o obj
 
   UsuariosDAO.inserirUsuario(dadosForm);
+  jogoDAO.gerarParametros(dadosForm.usuario); // é a string usuário e nao o json
 
   res.send('pode cadastrar');
 

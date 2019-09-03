@@ -16,7 +16,7 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
   this._connection.open( function(err, mongoClient){ 
     mongoClient.collection("usuarios", function(err, collection){
         collection.find(usuario).toArray(function(err, result){  //find retorna om ponteiro por isso tem que ser convertido em um array
-             //{usuario: {$eq: usuario.usuario}, senha: {$eq: usuario.senha}} // query-mesmo que {usuario: usuario.usuario, senha: usuario.senha} - mesmo que obj usuario
+//{usuario: {$eq: usuario.usuario}, senha: {$eq: usuario.senha}} // query-mesmo que {usuario: usuario.usuario, senha: usuario.senha} - q por sua vez é o mesmo que obj usuario
           if(result[0] != undefined){
             req.session.autorizado = true; //cria a var autenticado na sessao (variaveis de sessao)
             req.session.usuario = result[0].usuario;
@@ -27,13 +27,12 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
           } else {
             res.render('index', { validacao: {}, msg: 'Usuário não encontrado'});
           }
-
-
         });
        
         mongoClient.close();
     });
-});
+  });
+  
 }
 
 

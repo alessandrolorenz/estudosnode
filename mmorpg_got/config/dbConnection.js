@@ -14,7 +14,6 @@ var connMongoDB = function(){
    return db;
 }
 
-
 module.exports = function(){
   console.log('acessou pelo cosign mas nao conectou');
   return connMongoDB;

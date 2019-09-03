@@ -19,7 +19,6 @@ module.exports.autenticar = function(application, req, res){
 
   UsuariosDAO.autenticar(dadosForm, req, res);
 
-
-  //res.send('All good to create the session'); //só pode ter um response
+  //res.send('All good to create the session'); //sai daqui pq só pode ter um response
   
 }
