@@ -39,12 +39,37 @@
 						url: './pergaminhos',
 						method: "get",
 						success: function(data){
-							$('#acoes').html(data);
+							$('#acoes').html(data); //insere em #acoes
+
+							clearTimeout(timerId); // limpa o setTimeout(pra nao duplicar a instrucao e dobrar a contagem do tempo a cada click)
+							cronometro();
 						}
 					})
 				});
 
 			});
+
+			var timerId = null;
+
+			function cronometro(){
+
+				$('.tempo_restante').each(function(){
+					var tempo = $(this).html();  //this se refere ao elemento do laço each -  e o pega de .tempo_restante
+					var seg_atuais = parseInt(tempo) -1;
+
+					if(seg_atuais < 0) {
+						alert("A ação finalizou");
+						window.location.href="/jogo?mensagem=C";
+						
+					} else {
+						$(this).html(seg_atuais);
+
+					}
+
+				});
+				timerId = setTimeout('cronometro()', 1000 ); // recebe uma funcao prim. parametro e no segundo o tempo
+			}
+
 		</script>
 
 	</head>
@@ -71,6 +96,13 @@
 					<div class="alert alert-warning" id="msg">
 						<ul>
 							<strong>Ação realizada de boas</strong>
+						</ul>
+					</div>
+				<% } %>	    	
+				<% if(mensagem == 'C') { %>
+					<div class="alert alert-warning" id="msg">
+						<ul>
+							<strong>A ação foi finalizada</strong>
 						</ul>
 					</div>
 				<% } %>	    	

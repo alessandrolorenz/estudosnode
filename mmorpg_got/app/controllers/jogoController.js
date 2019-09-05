@@ -35,7 +35,7 @@ module.exports.suditos = function(application, req, res){
 }
 
 module.exports.pergaminhos = function(application, req, res){
-  if(!req.session.autorizado){
+  if(req.session.autorizado != true){
     res.render('index',{validacao:{}, msg:'Autentique-se para acessar o jogo'});
     return;
   }
@@ -45,10 +45,13 @@ module.exports.pergaminhos = function(application, req, res){
 
   var usuario = req.session.usuario;
 
-  jogoDAO.getAcoes(usuario);
+  jogoDAO.getAcoes(usuario, res);
 
-  res.render('pergaminhos', {validacao: {}, msg: ''})
+  // res.render('pergaminhos'}); // render vai para a DAO
 }
+
+
+
 
 
 module.exports.ordenar_acao_sudito = function(application, req, res){
