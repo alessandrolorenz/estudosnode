@@ -22,12 +22,12 @@
 
 				$('#btn_suditos').click(function(){
 					$('#msg').hide();
-
+							//renderiza a requisicão ser fazer o refresh
 					$.ajax({
-						url: './suditos',
+						url: './suditos', // dispara pra essa url.. mas sem refresh
 						method: "get",
 						success: function(data) {
-							$('#acoes').html(data);
+							$('#acoes').html(data); // obtem um htm de retorno do ajax e coloca aqui
 						}
 					})
 				});
@@ -53,8 +53,8 @@
 
 			function cronometro(){
 
-				$('.tempo_restante').each(function(){
-					var tempo = $(this).html();  //this se refere ao elemento do laço each -  e o pega de .tempo_restante
+				$('.tempo_restante').each(function(){// pode receber uma func de callback que é executada em cada elemento do laço
+					var tempo = $(this).html();  //this se refere ao elemento dentro do laço each -  e o pega de .tempo_restante
 					var seg_atuais = parseInt(tempo) -1;
 
 					if(seg_atuais < 0) {
@@ -103,6 +103,13 @@
 					<div class="alert alert-warning" id="msg">
 						<ul>
 							<strong>A ação foi finalizada</strong>
+						</ul>
+					</div>
+				<% } %>	    	
+				<% if(mensagem == 'D') { %>
+					<div class="alert alert-warning" id="msg">
+						<ul>
+							<strong>A ação foi Revogada</strong>
 						</ul>
 					</div>
 				<% } %>	    	

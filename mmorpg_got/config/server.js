@@ -11,13 +11,13 @@ app.set('view engine', 'ejs');
 app.set('views', './app/views');
 /* configurar o middleware express.static */
 app.use(express.static('./app/public'));
-/* configurar o middleware body-parser */
+
 app.use(bodyParser.urlencoded({extended: true}));
-/* configurar o middleware express-validator */
+
 app.use(expressValidator());
 app.use(expressSession({
 	secret: 'hasdfljhasder',
-	resave: false,
+	resave: false, // salvar a sessao no sevidor
 	saveUninitialized: false // pra salvar uma vez soh
 }));
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */

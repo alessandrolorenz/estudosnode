@@ -34,6 +34,7 @@ module.exports.suditos = function(application, req, res){
   res.render('aldeoes', {validacao: {}, msg: ''})
 }
 
+
 module.exports.pergaminhos = function(application, req, res){
   if(req.session.autorizado != true){
     res.render('index',{validacao:{}, msg:'Autentique-se para acessar o jogo'});
@@ -52,8 +53,6 @@ module.exports.pergaminhos = function(application, req, res){
 
 
 
-
-
 module.exports.ordenar_acao_sudito = function(application, req, res){
   
   var dadosForm = req.body;
@@ -65,7 +64,7 @@ module.exports.ordenar_acao_sudito = function(application, req, res){
 
   if(erros){
     res.redirect('jogo?mensagem=A'); //redirect o contoller associado a rota faz tratativas (precisa passar por la para ter os parametros) (e pq é post)
-    return;
+    return;                         // por isso tem que passar por module.exports.jogo
   }
 
   var connection = application.config.dbConnection;
@@ -78,3 +77,21 @@ module.exports.ordenar_acao_sudito = function(application, req, res){
   res.redirect('jogo?mensagem=B');
 
 }
+
+
+
+module.exports.revogar_acao = function(application, req, res){
+
+  var query = req.query;
+
+  var connection = application.config.dbConnection;
+  var jogoDAO = new application.app.models.JogoDAO(connection);
+
+  var _id = query.id_acao;
+// res.send(_id);
+ jogoDAO.revogar_acao(_id, res);
+
+}
+
+
+

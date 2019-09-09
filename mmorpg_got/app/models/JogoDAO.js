@@ -1,3 +1,5 @@
+var ObjectID = require('mongodb').ObjectID;
+
 function JogoDAO(connection){ 
   this._connection = connection(); 
 }
@@ -50,7 +52,7 @@ JogoDAO.prototype.acao = function(acao){ // acao é dadosForm
 
       acao.acao_termina_em = date.getTime() + tempo;
       collection.insert(acao);
-      console.log(acao);
+     // console.log(acao);
       // mongoclient.close(); // tem que fechar depois para ainda ter disponivel os dados
     });
 
@@ -69,7 +71,7 @@ JogoDAO.prototype.acao = function(acao){ // acao é dadosForm
             }}
         );
         
-        mongoclient.close();
+        mongoclient.close(); // fica aqi no final da segunda instrucao
     });
   }); 
 }
@@ -82,15 +84,34 @@ JogoDAO.prototype.getAcoes = function(usuario, res) {
       date =new Date();
       momento_atual = date.getTime();
 
-        collection.find({usuario : usuario, acao_termina_em: {$gt:momento_atual}}).toArray(function(err, result){     
+        collection.find({usuario : usuario, 
+          acao_termina_em: {$gt:momento_atual}}).toArray(function(err, result){     
           res.render('pergaminhos', {acoes: result});
 
-          mongoclient.close();
+         // mongoclient.close();
 
         });   
     });
   });
 }
+
+// no mongo, não é string e sim objeto.. require do mongo o ObjectID e aqui execua sua funcao
+
+JogoDAO.prototype.revogar_acao = function(_id, res) {
+  this._connection.open(function(err, mongoclient){ 
+    mongoclient.collection("acao", function(err, collection){
+      collection.remove(
+          {_id : ObjectID(_id)},
+         function(err, result) {
+          res.redirect("jogo?mensagem=D");
+          mongoclient.close();
+        } 
+      );   
+    });   
+  });
+}
+
+
 
 
 module.exports = function(){
